@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nansuke solver</title>
+</head>
+<body>
+  <form method="GET">
+    <label>Matrix size:</label>
+    <input type="number" name="size" value="{{size}}" placeholder="Input matrix size">
+    <label>Black cells:</label>
+    <input type="number" name="num" value="{{num}}" placeholder="Input number of black cells">
+    <button>Generate</button>
+  </form>
+  <form method="POST">
+  <!--  <input type="hidden" name="size" value="{{size}}">
+    <input type="hidden" name="puzzle[][]" value="{{datas}}">
+    <input type="hidden" name="inputs[]" value="{{input_data}}">-->
+    <button>Resolve</button>
+  </form>
+  <div style="width: 100%; display: inline-table">
+  <div style="width: 45%; display:inline-grid">
+<!--   <h1>Original data</h1>
+   <table>
+     {% for i, data in enumerate(datas) %}
+      <tr>
+        {% for j, val in enumerate(data) %}
+          {% if val %}
+            <th style="background: white; width: 1rem; height: 1rem; border: solid">　{{original_data[i][j]}}</th>
+          {% else %}
+            <th style="background: black; width: 1rem; height: 1rem; border: solid">　</th>
+          {% endif %}
+        
+        {% endfor %}
+      </tr>
+    {% endfor %}
+   </table>-->
+   <h1>Question</h1>
+   <table style="table-layout:fixed">
+     {% for i, data in enumerate(datas) %}
+      <tr height="5px">
+        {% for j, val in enumerate(data) %}
+          {% if val %}
+          <th width="5px" style="background: white; width: 1rem; height: 1rem; border: solid; width: 1pt" title="{{original_data[i][j]}}"></th>
+          {% else %}
+            <th width="5px" style="background: black; width: 1rem; height: 1rem; border: solid; width: 1pt"></th>
+          {% endif %}
+        
+        {% endfor %}
+      </tr>
+    {% endfor %}
+   </table>
+   <div>
+     <h2>Questions:</h2>
+     <div>
+     {% for l,q in questions.items() %}
+     <div><label>{{l}}:</label><div> {{q}}</div></div>
+     {% endfor %}
+     </div>
+   </div>
+  </div>
+    {% if other[4] > -1 %}
+  <div style="margin-left: 5rem; width: 45%; display:inline-grid">
+   <h1>Result</h1>
+   <table style="table-layout:fixed; width: 100%">
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     <col width="5px" />
+     {% for i, result in enumerate(results) %}
+      <tr height="5px">
+        {% for j, val in enumerate(result) %}
+          {% if val %}
+            {% if other[3][i][j] %}
+              <th width="5px" style="background: green; width: 1rem; height: 1rem; border: solid; width: 1pt">{{val}}</th>
+            {% else %}
+              <th width="5px" style="background: red; width: 1rem; height: 1rem; border: solid; width: 1pt">{{val}}</th>
+            {% endif %}
+            
+          {% else %}
+            <th width="5px" style="background: black; width: 1rem; height: 1rem; border: solid; width: 1pt">　</th>
+          {% endif %}
+        
+        {% endfor %}
+      </tr>
+    {% endfor %}
+   </table>
+   
+   <div>
+     <h2>Detail:</h2>
+     <div>
+       <div>
+         <h3>All Times: {{other[4]}} </h3>
+         <h3>SAT Times: {{other[0]}} </h3>
+         <h3>Clauses: {{other[1]}} </h3>
+         <h3>Variables: {{other[2]}} </h3>
+       </div>
+     </div>
+   </div>
+   
+  </div>
+    {% endif %}
+  </div>
+</body>
+</html>
